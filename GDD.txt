@@ -1,0 +1,57 @@
+Concept:
+	
+	Each Player starts with a Tank, a set amount of health and ammunition
+	Kill all others to win
+	each shot uses ammunition
+	collect amunition to fill up again
+	play against ai or other players
+	open world
+	
+
+Controlls:
+
+	Use WASD to move
+	controll Camera and Crosshair with mouse
+	Crosshair and Camera are locked to relative tank position
+		meaning when the tank turns the camera and crosshair turn aswell by the same amount
+	Fire with left mous
+	maybe aim with right mous
+	later change amunition with mouswheel
+
+Requirements:
+
+	Mesh and Map:
+		One map (maybe more)
+		Tank
+		Ammunition shell
+		Ammunition Pickup
+		Collision mesh
+		
+	
+	SFX:
+		Gunfire
+		Tank moving
+		Turret moving
+		Tank engine
+		Hit explosion
+		Miss explosion
+		Pickup pickup
+		Death explosion
+		Background musik
+
+	Textures:
+		Ground
+		Tank
+		Ammunition
+
+
+Future Ideas:
+
+	Healthpacks to regain health
+	different tank types
+		maybe different speed, range, damage, turningspeed, health
+	different kinds of ammunition to pick up
+	gamepad?
+	experience system/money system
+		buy upgrades for tanks etc.
+	
