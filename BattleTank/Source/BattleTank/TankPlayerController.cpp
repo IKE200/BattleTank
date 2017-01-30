@@ -33,6 +33,22 @@ ATank* ATankPlayerController::GetControlledTank() const
 void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
-	// Raycast through Crosshair and chech where it hits first
-	// Point Barrel towards the hitlocation
+	FVector HitLocation;
+	if (GetSightRayHitLocation(HitLocation))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
+		// TODO Point Barrel towards the hitlocation
+	}
+}
+
+// Raycast through Crosshair and check where it hits first
+bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
+{
+	// Find the crosshair position
+	int32 ViewportSizeX, ViewportSizeY;
+	GetViewportSize(ViewportSizeX, ViewportSizeY);
+	FVector2D CrossHairScreenLocation = FVector2D(ViewportSizeX*CrossHairXRelativeLocation, ViewportSizeY*CrossHairYRelativeLocation);
+	// Get Direction from Position
+	// Raycast along that direction, see what we hit
+	return true;
 }

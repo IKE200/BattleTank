@@ -21,5 +21,12 @@ public:
 private:
 	ATank* GetControlledTank() const;
 	void AimTowardsCrosshair();
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
+
+	UPROPERTY(EditAnywhere)
+		float CrossHairXRelativeLocation = 0.5;
+
+	UPROPERTY(EditAnywhere)
+		float CrossHairYRelativeLocation = 0.33333333;
 	
 };
