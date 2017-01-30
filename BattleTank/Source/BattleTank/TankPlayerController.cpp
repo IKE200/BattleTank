@@ -36,7 +36,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
 		// TODO Point Barrel towards the hitlocation
 	}
 }
@@ -47,8 +47,31 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	// Find the crosshair position
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
-	FVector2D CrossHairScreenLocation = FVector2D(ViewportSizeX*CrossHairXRelativeLocation, ViewportSizeY*CrossHairYRelativeLocation);
+	FVector2D CrossHairScreenLocation = FVector2D
+	(
+		ViewportSizeX*CrossHairXRelativeLocation, 
+		ViewportSizeY*CrossHairYRelativeLocation
+	);
+
 	// Get Direction from Position
+	FVector CrossHairWorldDirection;
+	if (GetLookDirection(CrossHairScreenLocation, CrossHairWorldDirection))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AimDirection: %s"), *CrossHairWorldDirection.ToString());
+	}
+
 	// Raycast along that direction, see what we hit
 	return true;
+}
+
+bool ATankPlayerController::GetLookDirection(FVector2D CrossHairScreenLocation, FVector& CrossHairWorldDirection) const
+{
+	FVector CameraWorldLocation;
+	return DeprojectScreenPositionToWorld
+	(
+		CrossHairScreenLocation.X,
+		CrossHairScreenLocation.Y,
+		CameraWorldLocation,
+		CrossHairWorldDirection
+	);
 }
