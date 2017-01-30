@@ -3,9 +3,9 @@
 #include "BattleTank.h"
 #include "TankPlayerController.h"
 
-void ATankPlayerController::Tick(float DeltaTime)
+void ATankPlayerController::Tick(float DeltaSeconds)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(DeltaSeconds);
 	AimTowardsCrosshair();
 }
 
@@ -36,7 +36,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
+		GetControlledTank()->AimAt(HitLocation);
 		// TODO Point Barrel towards the hitlocation
 	}
 }
@@ -59,11 +59,9 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	{
 		if (GetLookVectorHitLocation(HitLocation, CrossHairWorldDirection))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString())
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString())
 		}
 	}
 	
@@ -99,7 +97,6 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector& HitLocation, FVect
 	}
 	else
 	{
-		HitLocation = StartLocation + CrossHairWorldDirection * TankRange;
 		return false;
 	}
 }

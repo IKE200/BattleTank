@@ -3,3 +3,4 @@ BattleTank/Content/StarterContent/
 *.VC.opendb
 *.sln
 Packaged Game/
+BattleTank/ipch/
