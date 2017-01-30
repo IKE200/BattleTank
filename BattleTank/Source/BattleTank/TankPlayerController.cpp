@@ -57,10 +57,16 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	FVector CrossHairWorldDirection;
 	if (GetLookDirection(CrossHairScreenLocation, CrossHairWorldDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AimDirection: %s"), *CrossHairWorldDirection.ToString());
+		if (GetLookVectorHitLocation(HitLocation, CrossHairWorldDirection))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString())
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString())
+		}
 	}
-
-	// Raycast along that direction, see what we hit
+	
 	return true;
 }
 
@@ -74,4 +80,26 @@ bool ATankPlayerController::GetLookDirection(FVector2D CrossHairScreenLocation, 
 		CameraWorldLocation,
 		CrossHairWorldDirection
 	);
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector& HitLocation, FVector CrossHairWorldDirection) const
+{
+	FHitResult Hit;
+	FVector StartLocation = PlayerCameraManager->GetCameraLocation();
+	if (GetWorld()->LineTraceSingleByChannel
+	(
+		Hit,
+		StartLocation,
+		StartLocation + CrossHairWorldDirection*TankRange,
+		ECollisionChannel::ECC_Visibility
+	))
+	{
+		HitLocation = Hit.Location;
+		return true;
+	}
+	else
+	{
+		HitLocation = StartLocation + CrossHairWorldDirection * TankRange;
+		return false;
+	}
 }
