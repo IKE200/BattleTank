@@ -4,10 +4,9 @@
 #include "TankBarrel.h"
 
 
-void UTankBarrel::ElevateBarrel(float DegreesPerSecond)
+void UTankBarrel::ElevateBarrel(float RelativeSpeed)
 {
 	// Rotate Barrel Accordingly
 	// only move with a given maxspeed
-	UE_LOG(LogTemp, Warning, TEXT("Test"));
 }
 

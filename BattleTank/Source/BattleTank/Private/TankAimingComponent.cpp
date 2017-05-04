@@ -49,6 +49,10 @@ void UTankAimingComponent::AimAt(FVector AimLocation, float LaunchSpeed)
 		auto AimDirection = LaunchVelocity.GetSafeNormal();
 		MoveBarrel(AimDirection);
 	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Aim Solution found"));
+	}
 }
 
 void UTankAimingComponent::MoveBarrel(FVector AimDirection)
@@ -58,7 +62,8 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 	auto TankName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s AimAsRotator: %s"), *TankName, *DeltaRotator.ToString());
+	auto Time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("%f: %s AimAsRotator: %s"),Time , *TankName, *DeltaRotator.ToString());
 
 	Barrel->ElevateBarrel(5); // TODO remove magig number
 }
